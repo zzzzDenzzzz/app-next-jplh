@@ -14,6 +14,22 @@ export default function Index() {
       .catch((error) => setError(error));
   }, []);
 
+  const handleDeleteUser = (id) => {
+    const updatedUsers = users.filter((user) => user.id !== id);
+    setUsers(updatedUsers);
+  };
+
+  const handleUpdateUser = (id) => {
+    const userToUpdate = users.find((user) => user.id === id);
+    if (userToUpdate) {
+      const updatedUser = { ...userToUpdate, name: "Новое имя" };
+      const updatedUsers = users.map((user) =>
+        user.id === id ? updatedUser : user
+      );
+      setUsers(updatedUsers);
+    }
+  };
+
   if (error)
     return (
       <Dimmer active inverted>
@@ -35,6 +51,7 @@ export default function Index() {
           <Table.HeaderCell rowSpan="2">Phone</Table.HeaderCell>
           <Table.HeaderCell rowSpan="2">Website</Table.HeaderCell>
           <Table.HeaderCell colSpan="3">Company</Table.HeaderCell>
+          <Table.HeaderCell rowSpan="2">Actions</Table.HeaderCell>
         </Table.Row>
         <Table.Row>
           <Table.HeaderCell>Street</Table.HeaderCell>
@@ -61,6 +78,10 @@ export default function Index() {
             <Table.Cell>{user.company.name}</Table.Cell>
             <Table.Cell>{user.company.catchPhrase}</Table.Cell>
             <Table.Cell>{user.company.bs}</Table.Cell>
+            <Table.Cell>
+              <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
+              <button onClick={() => handleUpdateUser(user.id)}>Update</button>
+            </Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
