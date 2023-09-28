@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Table, Loader, Dimmer } from "semantic-ui-react";
+import { Table, Loader, Dimmer, Button } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 export default function Index() {
@@ -79,8 +79,17 @@ export default function Index() {
             <Table.Cell>{user.company.catchPhrase}</Table.Cell>
             <Table.Cell>{user.company.bs}</Table.Cell>
             <Table.Cell>
-              <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
-              <button onClick={() => handleUpdateUser(user.id)}>Update</button>
+              <Button.Group vertical>
+                <Button onClick={() => handleDeleteUser(user.id)} color="red">
+                  Delete
+                </Button>
+                <Button
+                  onClick={() => handleUpdateUser(user.id)}
+                  color="orange"
+                >
+                  Update
+                </Button>
+              </Button.Group>
             </Table.Cell>
           </Table.Row>
         ))}
